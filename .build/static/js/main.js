@@ -33,7 +33,7 @@ function setContainerWidth() {
 
 function addImage() {
   var item = queue.shift();
-  $(".container").append('<img class="image" src="' + (retina ? item.images.normal : item.images.teaser) + '" />');
+  $(".container").append('<img class="image" src="' + (retina ? item.images.hidpi : item.images.normal) + '" />');
 }
 
 function addBlank() {
@@ -51,25 +51,21 @@ function shotsLoaded(shots) {
 
 function checkQueue() {
   if(queue.length > 0) {
-    if(Math.random() > .5) {
+    if(Math.random() > .75) {
       addImage();
     } else {
       addBlank();
     }
   } else {
     checkScroll();
-    console.log(wait)
     if(!done && spaceLeft && !wait) {
-      console.log('getting page');
       getPage();
     }
   }
 }
 
 function checkScroll() {
-  if($('body').scrollTop() >= $('body').height() - $(window).innerHeight()) {
-    spaceLeft = true;
-  }
+  spaceLeft = $('body').scrollTop() >= $('body').height() - $(window).innerHeight();
 }
 
 function getPage() {

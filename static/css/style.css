@@ -1,7 +1,6 @@
 .image {
 	width: 200px;
-	height: 150px
-	opacity: 0;
+	height: 150px;
 	-webkit-animation: fadein 5s; /* Safari, Chrome and Opera > 12.1 */
 	-moz-animation: fadein 5s; /* Firefox < 16 */
 	-ms-animation: fadein 5s; /* Internet Explorer */
