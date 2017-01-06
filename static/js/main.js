@@ -7,6 +7,8 @@ var done = false;
 var spaceLeft = false;
 var wait = true;
 var retina;
+var currentIndex = 0;
+var photos = [];
 
 function create(el) {
   return document.createElement(el)
@@ -51,21 +53,65 @@ function getImagePath(image) {
 }
 
 function setContainerWidth() {
-  width = 400 * Math.floor(window.innerWidth / 400) || window.innerWidth;
+  width = 420 * Math.floor(window.innerWidth / 420) || window.innerWidth;
   $(".container").css("width", width);
 }
 
-function getSmallImage(image) {
-  return '<img class="image small" src="' + (getImagePath(image)) + '" />';
+function getImage(image, size) {
+  var small = true;
+  var modifier = retina ? 2 : 1;
+  var path = image.images.normal;
+  if(image.images.hidpi) {
+    small = false;
+    path = image.images.hidpi;
+  }
+  var tag =  '<img id="photo-' + currentIndex + '" class="image no-click ' + size + '" src="' + path + '" />';
+  currentIndex++;
+  photos.push({
+    w: small ? 400 / modifier : 800 / modifier,
+    h: small ? 300 / modifier : 600 / modifier,
+    src: path
+  });
+  return tag;
+}
+
+function addHandlers() {
+  var items = $('.no-click');
+  for(var i = 0; i < items.length; i++) {
+    $(items[i]).on('click', function(event) {
+      console.log(event);
+      openLightbox(event);
+    });
+    $(items[i]).removeClass('no-click');
+  }
+}
+
+function openLightbox(event) {
+  var options = {
+      index: parseInt(event.target.id.replace("photo-","")),
+      bgOpacity: 0.7,
+      showHideOpacity: true,
+      getThumbBoundsFn: function(index) {
+          var thumbnail = document.querySelector('#photo-' + index);
+          var pageYScroll = window.pageYOffset || document.documentElement.scrollTop;
+          var rect = thumbnail.getBoundingClientRect();
+          return {x:rect.left, y:rect.top + pageYScroll, w:rect.width};
+      }
+  }
+
+  // Initialize PhotoSwipe
+  var lightBox = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, photos, options);
+  lightBox.init();
 }
 
 function addBigImage() {
   var image = queue.shift();
-  $(".container").append('<img class="image big" src="' + (getImagePath(image)) + '" />');
+  $(".container").append(getImage(image, "big"));
+  addHandlers()
 }
 
-function addSmallBlank() {
-  $(".container").append('<img class="small" src="/static/images/blank.png" />');
+function getSmallBlank() {
+  return '<img class="small" src="/static/images/blank.png" />';
 }
 
 function addBigBlank() {
@@ -92,19 +138,20 @@ function addSmallImageBlock() {
   }
   var tags = [];
   for(var i = 0; i < images.length; i++) {
-    tags.push(getSmallImage(images[i]));
+    tags.push(getImage(images[i], "small"));
   }
   for(var i = 0; i < (4 - tags.length); i++) {
-    tags.push('<img class="small" src="/static/images/blank.png" />');
+    tags.push(getSmallBlank());
   }
   tags = shuffle(tags);
   var tagString = tags.join("");
-  $(".container").append('<div class="big flex flex-wrap">' + tagString + '</div>');
+  $(".container").append('<div class="big pad-5 flex flex-wrap">' + tagString + '</div>');
+  addHandlers();
 }
 
 function addImage() {
   var random = Math.random();
-  var a = 2, b = 1, c = 1, tot=a+b+c;
+  var a = 6, b = 3, c = 2, tot=a+b+c;
   if(random < (a/tot)) {
     addSmallImageBlock();
   } else if((a/tot) < random && random < ((a+b)/tot)) {
@@ -151,9 +198,16 @@ function getPage() {
   document.head.appendChild(script);
 }
 
+function openPhotoSwip() {
+  pswp = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, photos, {});
+  pswp.init();
+}
+
 $(document).ready(function() {
   retina = isRetina();
-  setContainerWidth()
+  setContainerWidth();
+  pswpElement = document.querySelectorAll('.pswp')[0];
+
   getPage();
 
   $(window).resize(setContainerWidth);
