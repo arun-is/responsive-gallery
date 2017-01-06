@@ -1,94 +1,39 @@
-.w-b5 {
-	width: 100vw;
-	height: 100vw;
+.image {
+	width: 200px;
+	height: 150px
+	opacity: 0;
+	-webkit-animation: fadein 5s; /* Safari, Chrome and Opera > 12.1 */
+	-moz-animation: fadein 5s; /* Firefox < 16 */
+	-ms-animation: fadein 5s; /* Internet Explorer */
+	-o-animation: fadein 5s; /* Opera < 12.1 */
+	animation: fadein 5s;
 }
-.w-b4 {
-	width: 100vw;
-	height: 100vw;
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }
-.w-b3 {
-	width: 100vw;
-	height: 100vw;
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }
-.w-b2 {
-	width: 100vw;
-	height: 100vw;
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }
-.w-b1 {
-	width: 100vw;
-	height: 100vw;
+
+/* Internet Explorer */
+@-ms-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }
-.w-b0 {
-	width: 100vw;
-	height: 100vw;
-}
-@media screen and (min-width: 500px) {
-	.w-b4 {
-		width: 50vw;
-		height: 50vw;
-	}
-}
-@media screen and (min-width: 500px) and (max-width: 1000px) {
-	.w-b4 {
-		width: 25vw;
-		height: 25vw;
-	}
-	.w-b3 {
-		width: 50vw;
-		height: 50vw;
-	}
-}
-@media screen and (min-width: 1000px) and (max-width: 2000px) {
-	.w-b4 {
-		width: 12.5vw;
-		height: 12.5vw;
-	}
-	.w-b3 {
-		width: 25vw;
-		height: 25vw;
-	}
-	.w-b2 {
-		width: 50vw;
-		height: 50vw;
-	}
-}
-@media screen and (min-width: 2000px) and (max-width: 4000px) {
-	.w-b4 {
-		width: 6.25vw;
-		height: 6.25vw;
-	}
-	.w-b3 {
-		width: 12.5vw;
-		height: 12.5vw;
-	}
-	.w-b2 {
-		width: 25vw;
-		height: 25vw;
-	}
-	.w-b1 {
-		width: 50vw;
-		height: 50vw;
-	}
-}
-@media screen and (min-width: 4000px){
-	.w-b4 {
-		width: 3.125vw;
-		height: 3.125vw;
-	}
-	.w-b3 {
-		width: 6.25vw;
-		height: 6.25vw;
-	}
-	.w-b2 {
-		width: 12.5vw;
-		height: 12.5vw;
-	}
-	.w-b1 {
-		width: 25vw;
-		height: 25vw;
-	}
-	.w-b0 {
-		width: 50vw;
-		height: 50vw;
-	}
+
+/* Opera < 12.1 */
+@-o-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }
