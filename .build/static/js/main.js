@@ -1,6 +1,6 @@
 // To make images retina, add a class "2x" to the img element
 // and add a <image-name>@2x.png image. Assumes jquery is loaded.
-var dribbble_username = "RypeArts";
+var dribbble_username = "arunv";
 var queue = [];
 var page = 0;
 var done = false;
@@ -183,7 +183,7 @@ function checkQueue() {
 }
 
 function checkScroll() {
-  spaceLeft = $('body').scrollTop() >= $('body').height() - $(window).innerHeight();
+  spaceLeft = $('body').scrollTop() >= $('body').height() - 500 - $(window).innerHeight();
 }
 
 function getPage() {
