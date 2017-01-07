@@ -17,6 +17,10 @@
 		height: 300px;
 }
 
+.h-500 {
+	height: 500px;
+}
+
 @media screen and (max-width: 400px) {
 	.big {
 		width: 100vw;
