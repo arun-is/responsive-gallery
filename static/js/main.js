@@ -212,5 +212,5 @@ $(document).ready(function() {
 
   $(window).resize(setContainerWidth);
 
-  setInterval(checkQueue, 100);
+  setInterval(checkQueue, 500);
 });
