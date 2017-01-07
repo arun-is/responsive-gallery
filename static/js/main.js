@@ -53,7 +53,7 @@ function getImagePath(image) {
 }
 
 function setContainerWidth() {
-  width = 420 * Math.floor(window.innerWidth / 420) || window.innerWidth;
+  width = 400 * Math.floor(window.innerWidth / 400) || window.innerWidth;
   $(".container").css("width", width);
 }
 
@@ -151,7 +151,7 @@ function addSmallImageBlock() {
 
 function addImage() {
   var random = Math.random();
-  var a = 6, b = 3, c = 2, tot=a+b+c;
+  var a = 6, b = 3, c = 0, tot=a+b+c;
   if(random < (a/tot)) {
     addSmallImageBlock();
   } else if((a/tot) < random && random < ((a+b)/tot)) {
