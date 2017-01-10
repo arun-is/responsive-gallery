@@ -1,6 +1,6 @@
 // To make images retina, add a class "2x" to the img element
 // and add a <image-name>@2x.png image. Assumes jquery is loaded.
-var dribbble_username = "arunv";
+var dribbble_username = "RypeArts";
 var queue = [];
 var page = 0;
 var done = false;
@@ -121,7 +121,7 @@ function addBigBlank() {
 function addSmallImageBlock() {
   var number = 0;
   var random = Math.random();
-  var a = 4, b = 3, c = 2, d = 1, tot=a+b+c+d;
+  var a = 4, b = 3, c = 2, d = 1, tot = a + b + c + d;
   if(random < (a/tot)) {
     number = 1;
   } else if((a/tot) < random && random < ((a+b)/tot)) {
@@ -132,18 +132,15 @@ function addSmallImageBlock() {
     number = 4;
   }
   number = Math.min(number,queue.length);
-  images = [];
-  for(var i = 0; i < number; i++) {
-    images.push(queue.shift());
+  tokens = [];
+  for(var i = 0; i < 4; i++) {
+    tokens.push(i < number ? "img" : "blank");
   }
+  tokens = shuffle(tokens);
   var tags = [];
-  for(var i = 0; i < images.length; i++) {
-    tags.push(getImage(images[i], "small"));
+  for(var i = 0; i < tokens.length; i++) {
+    tags.push(tokens[i] === "img" ? getImage(queue.shift(), "small") : getSmallBlank());
   }
-  for(var i = 0; i < (4 - tags.length); i++) {
-    tags.push(getSmallBlank());
-  }
-  tags = shuffle(tags);
   var tagString = tags.join("");
   $(".container").append('<div class="big pad-5 flex flex-wrap">' + tagString + '</div>');
   addHandlers();
